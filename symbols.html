@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<title>Әдеби символдар</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:Poppins;
+background:#0f172a;
+color:white;
+margin:0;
+}
+
+nav{
+display:flex;
+justify-content:center;
+gap:30px;
+padding:20px;
+background:#020617;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+}
+
+section{
+padding:80px 10%;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+}
+
+.card{
+background:#1e293b;
+border-radius:10px;
+padding:20px;
+text-align:center;
+}
+
+.card img{
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:8px;
+margin-bottom:10px;
+}
+
+.quiz{
+background:#1e293b;
+padding:30px;
+border-radius:10px;
+max-width:500px;
+margin:auto;
+text-align:center;
+}
+
+button{
+padding:10px 20px;
+margin:10px;
+border:none;
+border-radius:6px;
+background:#3b82f6;
+color:white;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<a href="index.html">Басты бет</a>
+<a href="psychology.html">Психология</a>
+<a href="games.html">Ойындар</a>
+<a href="quiz.html">Тест</a>
+
+</nav>
+
+
+<section>
+
+<h1 style="text-align:center">Әдеби символдар</h1>
+
+<p style="max-width:800px;margin:auto;text-align:center;font-size:18px;">
+Символ – белгілі бір ойды немесе құбылысты астарлы түрде
+білдіретін көркемдік құрал. Әдеби шығармаларда символ
+автордың философиялық ойын жеткізуге көмектеседі.
+</p>
+
+</section>
+
+
+<section>
+
+<h2 style="text-align:center">Кең тараған символдар</h2>
+
+<div class="cards">
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
+
+<h3>Теңіз</h3>
+
+<p>
+Өмірдің кеңдігін және адамның күресін білдіреді.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+
+<h3>Жол</h3>
+
+<p>
+Адамның тағдырын және өмір жолын білдіреді.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d">
+
+<h3>От</h3>
+
+<p>
+Күш пен өзгерісті білдіретін символ.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section>
+
+<h2 style="text-align:center">Мини тест</h2>
+
+<div class="quiz">
+
+<p>Символ деген не?</p>
+
+<button onclick="alert('Дұрыс!')">Астарлы белгі</button>
+<button onclick="alert('Қате')">Жай сөз</button>
+
+</div>
+
+</section>
+
+</body>
+</html>
