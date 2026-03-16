@@ -34,7 +34,7 @@ padding:80px 10%;
 background:#1e293b;
 padding:40px;
 border-radius:12px;
-max-width:700px;
+max-width:800px;
 margin:auto;
 margin-bottom:60px;
 }
@@ -46,12 +46,27 @@ border:none;
 border-radius:6px;
 background:#3b82f6;
 color:white;
-font-size:16px;
 cursor:pointer;
 }
 
 button:hover{
 background:#2563eb;
+}
+
+.dropzone{
+border:2px dashed #3b82f6;
+padding:30px;
+margin:20px;
+border-radius:10px;
+}
+
+.symbol{
+background:#334155;
+padding:10px;
+margin:10px;
+display:inline-block;
+cursor:grab;
+border-radius:6px;
 }
 
 </style>
@@ -69,77 +84,190 @@ background:#2563eb;
 
 </nav>
 
-
 <section>
 
 <h1>Әдеби интерактив ойындар</h1>
 
 </section>
 
+<!-- DRAG DROP -->
 
 <section class="game">
 
-<h2>1️⃣ Цитатаны тап</h2>
+<h2>1️⃣ Символды сәйкестендір</h2>
 
-<p>
-"Адамды жеңуге болады, бірақ оны сындыруға болмайды"
-</p>
+<p>Символды дұрыс мағынасына апарыңыз</p>
 
-<button onclick="alert('Дұрыс! Бұл Сантьяго')">Сантьяго</button>
+<div>
 
-<button onclick="alert('Қате')">Гамлет</button>
+<div class="symbol" draggable="true" ondragstart="drag(event)" id="sea">
+Теңіз
+</div>
 
-<button onclick="alert('Қате')">Дон Кихот</button>
+<div class="symbol" draggable="true" ondragstart="drag(event)" id="road">
+Жол
+</div>
+
+</div>
+
+<div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" id="life">
+Өмір
+</div>
+
+<div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" id="fate">
+Тағдыр
+</div>
+
+<p id="dragResult"></p>
 
 </section>
 
+<!-- ПСИХОЛОГИЯ ТЕСТ -->
 
 <section class="game">
 
-<h2>2️⃣ Символды сәйкестендір</h2>
+<h2>2️⃣ Сен қай кейіпкерсің?</h2>
 
-<p>Теңіз нені білдіреді?</p>
+<p>Қиындыққа тап болсаң не істейсің?</p>
 
-<button onclick="alert('Дұрыс!')">Өмір</button>
+<button onclick="result('Сен Сантьяго типіндегі кейіпкерсің – табанды және батыл.')">
+Күресемін
+</button>
 
-<button onclick="alert('Қате')">Қала</button>
+<button onclick="result('Сен ойшыл кейіпкерсің – көп ойланатын тұлға.')">
+Ойланамын
+</button>
 
-<button onclick="alert('Қате')">Үй</button>
+<button onclick="result('Сен батыр кейіпкерсің – қиындықты жеңесің.')">
+Әрекет етемін
+</button>
+
+<p id="heroResult"></p>
 
 </section>
 
+<!-- ҰПАЙ ОЙЫНЫ -->
 
 <section class="game">
 
-<h2>3️⃣ Кейіпкерді анықта</h2>
+<h2>3️⃣ Жылдам сұрақ</h2>
 
-<p>
-Бұл кейіпкер теңізде жалғыз үлкен балықпен күреседі.
-</p>
+<p id="q"></p>
 
-<button onclick="alert('Дұрыс!')">Сантьяго</button>
+<div id="answers"></div>
 
-<button onclick="alert('Қате')">Одиссей</button>
-
-<button onclick="alert('Қате')">Гамлет</button>
+<p id="score"></p>
 
 </section>
 
+<script>
 
-<section class="game">
+/* drag drop */
 
-<h2>4️⃣ Жылдам сұрақ</h2>
+function allowDrop(ev){
+ev.preventDefault();
+}
 
-<p>Әдеби символ деген не?</p>
+function drag(ev){
+ev.dataTransfer.setData("text", ev.target.id);
+}
 
-<button onclick="alert('Дұрыс!')">Астарлы белгі</button>
+function drop(ev){
 
-<button onclick="alert('Қате')">Жай сөз</button>
+ev.preventDefault();
 
-<button onclick="alert('Қате')">Оқиға</button>
+let data = ev.dataTransfer.getData("text");
 
-</section>
+let result=document.getElementById("dragResult");
 
+if(data==="sea" && ev.target.id==="life"){
+result.innerText="Дұрыс!";
+}
+
+else if(data==="road" && ev.target.id==="fate"){
+result.innerText="Дұрыс!";
+}
+
+else{
+result.innerText="Қате, қайта көріңіз.";
+}
+
+}
+
+/* психология */
+
+function result(text){
+document.getElementById("heroResult").innerText=text;
+}
+
+/* quiz game */
+
+const quiz=[
+
+{q:"Символ деген не?",a:["Астарлы белгі","Жай сөз","Оқиға"],c:0},
+
+{q:"Жол символы нені білдіреді?",a:["Тағдыр","Үй","Қала"],c:0},
+
+{q:"От символы?",a:["Күш","Су","Жол"],c:0}
+
+];
+
+let i=0;
+let score=0;
+
+function load(){
+
+let question=quiz[i];
+
+document.getElementById("q").innerText=question.q;
+
+let html="";
+
+question.a.forEach((a,index)=>{
+
+html+=`<button onclick="check(${index})">${a}</button>`;
+
+});
+
+document.getElementById("answers").innerHTML=html;
+
+}
+
+function check(x){
+
+if(x===quiz[i].c){
+
+score++;
+
+alert("Дұрыс");
+
+}else{
+
+alert("Қате");
+
+}
+
+i++;
+
+if(i>=quiz.length){
+
+document.getElementById("q").innerText="Ойын аяқталды";
+
+document.getElementById("score").innerText="Ұпай: "+score;
+
+document.getElementById("answers").innerHTML="";
+
+return;
+
+}
+
+load();
+
+}
+
+load();
+
+</script>
 
 </body>
 </html>
